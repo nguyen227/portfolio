@@ -4,16 +4,22 @@ import { portfolioData } from '@/data/portfolio';
 import { ThemeToggle } from './ThemeToggle';
 import { Terminal } from 'lucide-react';
 
-export function Navbar() {
-  const navItems = [
-    'Home',
-    'Skills',
-    'Experience',
-    'Projects',
-    'Contact',
-    'Lab',
-  ];
+interface NavItem {
+  name: string;
+  href: string;
+  isExternal?: boolean;
+}
 
+const navItems: NavItem[] = [
+  { name: 'Home', href: '/#home' },
+  { name: 'Skills', href: '/#skills' },
+  { name: 'Experience', href: '/#experience' },
+  { name: 'Projects', href: '/#projects' },
+  { name: 'Contact', href: '/#contact' },
+  { name: 'Lab', href: 'https://lab.nguyen227.dev', isExternal: true },
+];
+
+export function Navbar() {
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-neutral-light/50 dark:border-white/10 rounded-2xl shadow-xl shadow-black/5">
       <div className="px-6 h-16 flex items-center justify-between">
@@ -27,24 +33,15 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => {
-            const isLab = item === 'Lab';
-            const href = isLab
-              ? 'https://lab.nguyen227.dev'
-              : `/#${item.toLowerCase()}`;
-            return (
-              <a
-                key={item}
-                className="text-[12px] font-bold text-neutral-grey hover:text-black dark:hover:text-white transition-colors tracking-widest uppercase"
-                href={href}
-                {...(isLab
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {})}
-              >
-                {item}
-              </a>
-            );
-          })}
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              className="text-[12px] font-bold text-neutral-grey hover:text-black dark:hover:text-white transition-colors tracking-widest uppercase"
+              href={item.href}
+            >
+              {item.name}
+            </a>
+          ))}
           <div className="h-4 w-px bg-neutral-light dark:bg-white/10"></div>
           <ThemeToggle />
         </div>
