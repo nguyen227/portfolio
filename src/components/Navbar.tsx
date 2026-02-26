@@ -29,12 +29,17 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => {
             const isLab = item === 'Lab';
-            const href = isLab ? '/tech-lab' : `/#${item.toLowerCase()}`;
+            const href = isLab
+              ? 'https://lab.nguyen227.dev'
+              : `/#${item.toLowerCase()}`;
             return (
               <a
                 key={item}
                 className="text-[12px] font-bold text-neutral-grey hover:text-black dark:hover:text-white transition-colors tracking-widest uppercase"
                 href={href}
+                {...(isLab
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
               >
                 {item}
               </a>
